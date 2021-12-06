@@ -20,7 +20,6 @@ public class Sale {
     int ID_product; // ID товара
     int ID_seller; // ID продавца
     int quantityOfSoldProducts; // Количество проданных товаров
-
     Date dateOfSale; // дата продажи
 
     public Sale(int ID_sale, int ID_product, int ID_seller, int quantityOfSoldProducts, Date dateOfSale) {
@@ -33,6 +32,8 @@ public class Sale {
 
     public Sale() {
     }
+
+
 
     public int getID_sale() {
         return ID_sale;

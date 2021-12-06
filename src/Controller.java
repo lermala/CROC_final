@@ -3,7 +3,7 @@ import work_with_data.JSONClass;
 
 public class Controller {
 
-    public void start(){
+    public void start() throws Exception {
         // 1. вызываем класс для считывания данных
         JSONClass parsingClass = new JSONClass();
         // parsingClass.createStartFile(); // создаем и наполняем файлы, если их не существует
@@ -16,6 +16,9 @@ public class Controller {
                 parsingClass.getSales()
                 );
 
+        // general.getTopSellers(5).stream().forEach(x -> System.out.println(x));;
+
+        general.getTopDates(5);
 
     }
 }

@@ -68,6 +68,8 @@ public class JSONClass {
         }
     }
 
+
+
     public List<Product> getProducts() {
         return products;
     }

@@ -1,5 +1,8 @@
 import work_with_data.JSONClass;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Вариант 10
  */
@@ -13,8 +16,12 @@ public class Main {
 
 //        JSONClass parsingClass = new JSONClass();
         // parsingClass.createStartFile();
-
-
+        Controller controller = new Controller();
+        try {
+            controller.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
