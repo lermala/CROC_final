@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Класс для генерации данных для классов logic/Seller, logic/Product, logic/Sale, logic/SellersProduct
+ */
 public class DataGenerator {
     List<Seller> sellers = new ArrayList<>();
     List<Product> products = new ArrayList<>();

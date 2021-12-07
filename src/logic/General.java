@@ -1,9 +1,11 @@
 package logic;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-// 4	Вывести в файл топ 5 продавцов, продавших наибольшее количество товаров
-// 1	Вывести в файл топ 5 дат, в которые было продано наибольшее количество товаров
+/**
+ * Класс для работы с множествами объектов классов Seller, Product, SellersProduct, Sale.
+ */
 public class General {
     private List<Seller> sellers;
     private List<Product> products;
@@ -17,35 +19,8 @@ public class General {
         this.sales = sales;
     }
 
-    // Вывести в файл топ 5 дат, в которые было продано наибольшее количество товаров
-    public void getTopDates(int top){
-        // for every date
-        // count quantity of product
-
-        //Map<Date, int> dateMap = new Ma
-
-        List<DateInfo> dateInfos = new ArrayList<>();
-        for (Sale s: sales) {
-            dateInfos.add(new DateInfo(s.getDateOfSale()));
-        }
-
-        Set<DateInfo> dateInfoSet = new HashSet<>();
-        for (Sale s: sales) {
-            dateInfoSet.add(new DateInfo(s.getDateOfSale()));
-        }
-
-        System.out.println("List:" + dateInfos.size());
-        //dateInfos.stream().forEach(x -> System.out.println(x.toString()));
-
-        System.out.println("Set:" + dateInfoSet.size());
-        //dateInfoSet.stream().forEach(x -> System.out.println(x.toString()));
-
-
-        Date d1 = new Date();
-        System.out.println(d1);
-    }
-
     /**
+     * ЗАДАНИЕ 1
      * заданное количество (топ) продавцов, продавших наибольшее количество товаров
      * @param top - количество лучших продавцов, которых нужно вывести
      * @return список лучших продавцов
@@ -71,6 +46,52 @@ public class General {
         topSellers = sellers.subList(0, top); // получаем топ продавцов
 
         return topSellers;
+    }
+
+    /**
+     * ЗАДАНИЕ 2
+     * Функция находит топ дат, в которые было продано наибольшее количество товаров
+     * @param top количество дат, которые нужно вывести
+     * @return топ дат, в которые было продано наибольшее количество товаров
+     */
+    public List<Map.Entry<Date, Integer>> getTopDates(int top){
+        Map<Date, Integer> dateMap = new HashMap<>();
+        // сначала смотрим, какие есть даты и вносим их как ключи
+        for (Sale s: sales) {
+            dateMap.put(s.getDateOfSale(), 0);
+        }
+
+        // теперь считаем для каждой даты кол-во продаж
+        for (Sale s: sales) {
+            for(Map.Entry<Date, Integer> item : dateMap.entrySet()){
+                if (s.getDateOfSale().getTime() == item.getKey().getTime()){ // если даты соответствуют
+                    Integer count = item.getValue() + s.getQuantityOfSoldProducts(); // считаем кол-во
+                    System.out.println(item.getKey().getTime() + " val=" + item.getValue() + " sold=" + s.getQuantityOfSoldProducts() + " count=" + count);
+                    item.setValue(count); // устанавливаем новое значение проданных товаров
+                }
+            }
+        }
+
+        // перебор элементов
+        //System.out.println("sales: " + sales.size());
+        //System.out.println("Perebor: " + dateMap.size());
+        //for(Map.Entry<Date, Integer> item : dateMap.entrySet()){
+        //   // System.out.println(item.getKey() + " " + item.getValue());
+        //}
+
+        // теперь сортируем по кол-ву продаж
+        List<Map.Entry<Date, Integer>> topDates = dateMap.entrySet().stream()
+                .sorted(Map.Entry.<Date, Integer>comparingByValue().reversed())
+                .limit(top)
+                //.collect(Collectors.toList())
+                //.collect(Collectors.toMap(d -> d.getKey(), i -> i.getValue()))
+                .collect(Collectors.toList())
+                //.forEach(System.out::println);
+                ;
+
+        topDates.forEach(System.out::println);
+
+        return topDates;
     }
 
     /**

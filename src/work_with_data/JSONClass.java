@@ -23,7 +23,6 @@ public class JSONClass {
     private List<SellersProduct> sellersProducts;
 
     public JSONClass() {
-
     }
 
     /**
@@ -50,6 +49,9 @@ public class JSONClass {
         }
     }
 
+    /**
+     * Функция считывания данных из существующих JSON файлов.
+     */
     public void readData(){
         ObjectMapper mapper = new ObjectMapper();
         try {
